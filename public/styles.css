@@ -247,3 +247,8 @@ html { font-size: 17px; }
   .cta h2 { font-size: 1.15rem; }
   .gear-pop { position: fixed; left: 14px; right: 14px; top: 64px; width: auto; }
 }
+
+/* trava adaptação mobile: sem font-boosting do Chrome Android e sem overflow horizontal */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { overflow-x: hidden; }
+img, svg { max-width: 100%; }

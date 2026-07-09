@@ -1,5 +1,5 @@
 // Service worker network-first: sempre busca a versão nova; cache só como fallback offline. /api nunca cacheia.
-const CACHE = "iedcalc-v2";
+const CACHE = "iedcalc-v3";
 const PRECACHE = ["/", "/app.js", "/styles.css", "/manifest.webmanifest", "/img/logo.png", "/img/marcao.jpg", "/icons/icon-192.png", "/icons/icon-512.png"];
 
 self.addEventListener("install", (e) => {
