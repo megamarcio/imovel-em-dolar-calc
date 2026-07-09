@@ -7,8 +7,15 @@ import path from "node:path";
 
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = process.env.DATA_DIR || "./data";
-const SECRET = process.env.AUTH_SECRET || "iedcalc-dev-secret";
+const SECRET = process.env.AUTH_SECRET || (process.env.NODE_ENV !== "production" ? "iedcalc-dev-secret" : null);
+if (!SECRET) throw new Error("AUTH_SECRET é obrigatório em produção");
 const ADMIN_KEY = process.env.ADMIN_KEY || "";
+
+const safeEqual = (a, b) => {
+  const ba = Buffer.from(String(a || ""), "utf8");
+  const bb = Buffer.from(String(b || ""), "utf8");
+  return ba.length === bb.length && timingSafeEqual(ba, bb);
+};
 
 mkdirSync(DATA_DIR, { recursive: true });
 const db = new DatabaseSync(path.join(DATA_DIR, "calc.db"));
@@ -42,6 +49,7 @@ const limited = (ip) => {
 };
 
 const app = express();
+app.set("trust proxy", "loopback, linklocal, uniquelocal"); // Traefik na frente — req.ip = IP real do cliente
 app.use(express.json({ limit: "10kb" }));
 
 app.post("/api/register", (req, res) => {
@@ -71,9 +79,10 @@ app.post("/api/login", (req, res) => {
   res.json({ token: sign({ email: u.email, ts: Date.now() }), name: u.name });
 });
 
-// exportação de leads pro Marcio: GET /api/leads?key=ADMIN_KEY
+// exportação de leads pro Marcio: header "x-admin-key: <ADMIN_KEY>" (ou ?key= pra uso rápido no navegador)
 app.get("/api/leads", (req, res) => {
-  if (!ADMIN_KEY || req.query.key !== ADMIN_KEY) return res.status(403).json({ error: "forbidden" });
+  const provided = req.get("x-admin-key") || req.query.key;
+  if (!ADMIN_KEY || !safeEqual(provided, ADMIN_KEY)) return res.status(403).json({ error: "forbidden" });
   res.json(db.prepare("SELECT id,name,email,whatsapp,lang,created_at FROM users ORDER BY id DESC").all());
 });
 
