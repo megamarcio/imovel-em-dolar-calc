@@ -1,0 +1,26 @@
+# docker stack deploy -c stack.yml imovel_calc   (na VPS 82, padrão Traefik dos outros stacks)
+version: "3.8"
+services:
+  calc:
+    image: imovel_calc:latest
+    environment:
+      - AUTH_SECRET=${AUTH_SECRET}
+      - ADMIN_KEY=${ADMIN_KEY}
+    volumes:
+      - calc_data:/data
+    networks:
+      - traefik_public
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.iedcalc.rule=Host(`calc.imovelemdolar.com.br`)
+        - traefik.http.routers.iedcalc.entrypoints=websecure
+        - traefik.http.routers.iedcalc.tls.certresolver=le
+        - traefik.http.services.iedcalc.loadbalancer.server.port=3000
+        - traefik.docker.network=traefik_public
+networks:
+  traefik_public:
+    external: true
+volumes:
+  calc_data:

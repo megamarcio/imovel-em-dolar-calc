@@ -1,0 +1,26 @@
+node_modules/
+dist/
+data/
+*.tgz
+.playwright-mcp/
+*.png.tmp
+
+# segredos e artefatos de assinatura — NUNCA commitar
+twa/android.keystore
+.env
+.env.*
+
+# projeto Android gerado pelo Bubblewrap (regenerável com bubblewrap update)
+twa/app/
+twa/gradle/
+twa/build/
+twa/.gradle/
+twa/gradlew*
+twa/build.gradle
+twa/settings.gradle
+twa/gradle.properties
+twa/store_icon.png
+twa/manifest-checksum.txt
+twa/*.apk
+twa/*.aab
+twa/*.idsig

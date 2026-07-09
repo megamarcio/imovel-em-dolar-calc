@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "br.com.imovelemdolar.calc",
+      "sha256_cert_fingerprints": [
+        "DB:C6:BF:4A:6B:E5:74:BE:20:CB:4B:86:EC:DA:B0:B4:48:0E:FC:E2:D7:CE:85:D7:81:B2:E1:47:EA:82:4D:AE"
+      ]
+    }
+  }
+]
