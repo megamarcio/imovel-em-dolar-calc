@@ -406,6 +406,8 @@ function App() {
 
 createRoot(document.getElementById("root")).render(<App />);
 
+// ponytail: registra o sw.js kill-switch pra expurgar SWs antigos de quem já visitou;
+// depois ele se desregistra e o app passa a rodar sempre direto da rede.
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js"));
 }
