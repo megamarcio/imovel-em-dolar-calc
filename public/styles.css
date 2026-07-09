@@ -228,3 +228,22 @@ html.dark select option { background: #14163A; color: #EDF1FF; }
 .topbar { position: relative; justify-content: center; }
 .topbar .logo { display: block; }
 .topbar-right { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+
+/* letra +1pt no app inteiro (tudo é rem) */
+html { font-size: 17px; }
+
+/* organização no celular */
+@media (max-width: 760px) {
+  .topbar { justify-content: space-between; flex-wrap: nowrap; }
+  .topbar .logo { height: 36px; }
+  .topbar-right { position: static; transform: none; display: flex; gap: 8px; align-items: center; }
+  .app { padding: 0 14px 36px; }
+  .card { padding: 18px 14px; }
+  .headline { font-size: 1.45rem; }
+  .subhead { font-size: 0.98rem; }
+  .hero { padding: 8px 0 16px; }
+  .result-value { font-size: 2.3rem; }
+  .cta { padding: 30px 6px 6px; }
+  .cta h2 { font-size: 1.15rem; }
+  .gear-pop { position: fixed; left: 14px; right: 14px; top: 64px; width: auto; }
+}
