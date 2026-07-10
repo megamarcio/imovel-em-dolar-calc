@@ -246,9 +246,12 @@ html { font-size: 17px; }
   .cta { padding: 30px 6px 6px; }
   .cta h2 { font-size: 1.15rem; }
   .gear-pop { position: fixed; left: 14px; right: 14px; top: 64px; width: auto; }
+  .row2 { grid-template-columns: 1fr; }
+  .taxmode { flex-wrap: wrap; gap: 6px; }
 }
 
 /* trava adaptação mobile: sem font-boosting do Chrome Android e sem overflow horizontal */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-body { overflow-x: hidden; }
+html, body { overflow-x: clip; max-width: 100%; }
+.grid > *, .row2 > *, .field, .field-box { min-width: 0; }
 img, svg { max-width: 100%; }
